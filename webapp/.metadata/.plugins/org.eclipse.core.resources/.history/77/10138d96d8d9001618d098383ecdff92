@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/mapping.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+<body>
+<h1>Code Application</h1>    
+<form id="data-form">
+<span>Stream: </span><input id="data-input" onkeyup="mapping(this.form.stream.value)" name="stream" type="text">
+<input type="button" onclick="mapping(this.form.stream.value)" value="Get Code" />
+<br>
+<div id="result">
+  <span>Code: </span><span id="update"></span>
+</div> 
+</form>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Mapping
+ */
+@WebServlet(asyncSupported = true, name = "mapping", urlPatterns = { "/mapping" })
+public class Mapping extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public Mapping() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("servlet called!");
+		
+        GFG o1 = new GFG();
+        Map<Integer, String> patHash = new HashMap<>();
+        Map<String, Integer> patCode = new HashMap<>();
+        String pat1 = "aaa";
+        String pat2 = "abb";
+        int patCode1 = 1;
+        int patCode2 = 2;
+        patHash.put(o1.getHash(pat1, pat1.length()), pat1);
+        patHash.put(o1.getHash(pat2, pat2.length()), pat2);
+        patCode.put(pat1, patCode1);
+        patCode.put(pat2, patCode2);
+        
+        ArrayList<Integer> result = new ArrayList<>();
+
+       result =  o1.search("aaaabb", patHash, patCode);
+		response.getWriter().append(request.getParameter("data"));
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("post servlet called!");
+		System.out.println(request.getParameter("data"));
+		doGet(request, response);
+	}
+
+}

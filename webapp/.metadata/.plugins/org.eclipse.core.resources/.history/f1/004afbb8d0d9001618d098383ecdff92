@@ -1,0 +1,76 @@
+import java.util.*;
+
+public class DataCode {
+	
+	public DataCode() {
+		
+	}
+    private int prime = 31;
+	private String pattern1 = "aaa";
+	private String pattern2 = "aba";
+	private int patCode1 = 1;
+	private int patCode2 = 2;
+	private int patternLen = 3;
+	
+	private enum Codes {
+		
+	}
+
+    public int getHash(String pattern) {
+        int hash = 0;
+        for (int i = 0; i < patternLen; i++) {
+            hash += pattern.charAt(i) * Math.pow(prime, i);
+        }
+        return hash;
+    }
+
+    public int rehash(int dataHash, char firstChar, char newChar) {
+        dataHash = dataHash - firstChar;
+        dataHash = dataHash / prime;
+        dataHash += newChar * Math.pow(prime, patternLen - 1);
+        return dataHash;
+
+    }
+
+    public ArrayList<Integer> search(String data, Map<Integer, String> patHash, Map<String, Integer> patCode) {
+        ArrayList<Integer> codes = new ArrayList<>();
+        int dataLen = data.length();
+        int dataHash = getHash(data); // hash value for the text 3 characters first.
+        int i = 0;
+        
+        while (i <= dataLen - patternLen) {
+            if (patHash.containsKey(dataHash) && 
+            	data.substring(i, patHash.get(dataHash).length() + i).equals(patHash.get(dataHash))) {
+                codes.add(patCode.get(patHash.get(dataHash)));
+                i += patternLen;
+                if ((i + patternLen - 1) < dataLen) {
+                    dataHash = getHash(data.substring(i, i + patternLen));
+                }
+            } else {
+                // Recalculate hash value t
+                if (i < dataLen - patternLen) {
+                    dataHash = rehash(dataHash, data.charAt(i), data.charAt(i + patternLen));
+                }
+                i++;
+            }
+        }
+        return codes;
+    }
+
+	public String processRequest(String input) {
+        Map<Integer, String> patHash = new HashMap<>();
+        Map<String, Integer> patCode = new HashMap<>();
+        patHash.put(getHash(pattern1), pattern1);
+        patHash.put(getHash(pattern2), pattern2);
+        patCode.put(pattern1, patCode1);
+        patCode.put(pattern2, patCode2);
+        
+        ArrayList<Integer> result = new ArrayList<>();
+        String output = "";
+        result =  search(input, patHash, patCode);
+        for(Integer code : result) {
+        	output += code.toString();
+        }
+		return output;
+	}
+}

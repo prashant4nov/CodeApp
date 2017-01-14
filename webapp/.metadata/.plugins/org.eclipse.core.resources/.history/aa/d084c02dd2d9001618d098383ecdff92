@@ -1,0 +1,6 @@
+function mapping(stream) {
+	alert(hi"");
+    $.ajax({url: "mapping", type: "POST", data: {'data': stream},success: function(result){
+        document.getElementById("update").innerHTML = result;
+    }});
+}

@@ -1,0 +1,7 @@
+#data-form {
+	padding-left: 40%;
+}
+
+#result {
+	margin-top: 10px;
+}

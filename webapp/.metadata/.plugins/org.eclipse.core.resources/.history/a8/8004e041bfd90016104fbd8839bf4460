@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <form action="mapping" method="POST" onkeypress="myFunction()" onsubmit="myFunction()">
+            Stream: <input name="stream" type="text"> 
+            <input type="submit" value="Add Pet">
+            <br>
+            </form>
+
+<script>
+function myFunction() {
+    alert("You pressed a key inside the input field");
+}
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>

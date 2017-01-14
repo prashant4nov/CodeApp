@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+ <form onkeypress="myFunction()" onsubmit="myFunction()">
+            Stream: <input name="stream" type="text" id="stream"> 
+            <button onclick="myFunction()">Get Code</button>
+            <br>
+ </form>
+<span>Code: </span><span id="update"></span>
+
+<script>
+function myFunction(form) {
+    $.ajax({url: "mapping", type: "POST", data: {'data': document.getElementById("stream").value},success: function(result){
+        document.getElementById("update").innerHTML = result;
+    }});
+}
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>

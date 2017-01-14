@@ -1,0 +1,11 @@
+#data-form {
+	padding-left: 25%;
+}
+
+#result {
+	margin-top: 10px;
+}
+
+#data-input {
+	width: 40%;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+ <form onkeypress="myFunction()" onsubmit="myFunction()">
+            Stream: <input name="stream" type="text"> 
+            <input type="submit" value="Get Code">
+            <br>
+            </form>
+
+<script>
+function myFunction() {
+    alert("You pressed a key inside the input field");
+    $.ajax({url: "mapping", success: function(result){
+        $("#div1").html(result);
+    }});
+}
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>

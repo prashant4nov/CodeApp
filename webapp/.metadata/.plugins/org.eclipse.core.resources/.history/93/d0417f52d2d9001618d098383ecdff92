@@ -1,0 +1,75 @@
+import java.util.*;
+
+public class DataCode {
+    private int prime = 31;
+	private String pattern1 = "aaa";
+	private String pattern2 = "aba";
+	private int patCode1 = 1;
+	private int patCode2 = 2;
+	private int patternLen = 3;
+    Map<Integer, String> patternHash = new HashMap<>();
+    Map<String, Integer> patternCode = new HashMap<>();
+	
+	public DataCode() {
+        patternHash.put(getHash(pattern1), pattern1);
+        patternHash.put(getHash(pattern2), pattern2);
+        patternCode.put(pattern1, patCode1);
+        patternCode.put(pattern2, patCode2);	
+	}
+
+	
+	private enum Codes {
+		
+	}
+
+    public int getHash(String pattern) {
+        int hash = 0;
+        for (int index = 0; index < patternLen; index++) {
+            hash += pattern.charAt(index) * Math.pow(prime, index);
+        }
+        return hash;
+    }
+
+    public int rehash(int dataHash, char firstChar, char newChar) {
+        dataHash = dataHash - firstChar;
+        dataHash = dataHash / prime;
+        dataHash += newChar * Math.pow(prime, patternLen - 1);
+        return dataHash;
+
+    }
+
+    public ArrayList<Integer> search(String data) {
+        ArrayList<Integer> codes = new ArrayList<>();
+        int dataLen = data.length();
+        int dataHash = getHash(data); // hash value for the text 3 characters first.
+        int index = 0;
+        
+        while (index <= dataLen - patternLen) {
+            if (patternHash.containsKey(dataHash) && 
+            	data.substring(index, patternHash.get(dataHash).length() + index).equals(patternHash.get(dataHash))) {
+                codes.add(patternCode.get(patternHash.get(dataHash)));
+                index += patternLen;
+                if ((index + patternLen - 1) < dataLen) {
+                    dataHash = getHash(data.substring(index, index + patternLen));
+                }
+            } else {
+                // Recalculate hash value t
+                if (index < dataLen - patternLen) {
+                    dataHash = rehash(dataHash, data.charAt(index), data.charAt(index + patternLen));
+                }
+                index++;
+            }
+        }
+        return codes;
+    }
+
+	public String processRequest(String input) {
+        ArrayList<Integer> result = new ArrayList<>();
+        String output = "";
+        result =  search(input);
+        for(Integer code : result) {
+        	output += code.toString();
+        }
+		return output;
+	}
+}
